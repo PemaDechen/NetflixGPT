@@ -20,4 +20,4 @@
             },
             plugins: [],
             }
- ### Somthing Crazy The project structure itself took me 1hour 20mins -wowow 
+ ###### Something Crazy The project structure itself took me 1hour 20mins -wowow 
