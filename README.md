@@ -18,4 +18,4 @@
             },
             plugins: [],
             }
-
+<!-- The project structure itself took me 1hour 20mins -wowow  -->
