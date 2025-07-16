@@ -10,7 +10,7 @@
                 @import "tailwindcss/utilities";" 
                 lines in index.css file" 
     2.4. Configure tailwind.config.js file to 
-        /** @type {import('tailwindcss').Config} */
+       `inline code` /** @type {import('tailwindcss').Config} */
             module.exports = {
             content: [
                 "./src/**/*.{js,jsx,ts,tsx}",
@@ -20,4 +20,4 @@
             },
             plugins: [],
             }
-# Somthing Crazy The project structure itself took me 1hour 20mins -wowow 
+ ### Somthing Crazy The project structure itself took me 1hour 20mins -wowow 
