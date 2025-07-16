@@ -1,4 +1,4 @@
-<!-- NETFLIX GPT -->
+# NETFLIX GPT 
 
 1. Created React App using "create-react-app"
 2. Configured TailWind by 
@@ -20,4 +20,4 @@
             },
             plugins: [],
             }
-<!-- The project structure itself took me 1hour 20mins -wowow  -->
+# Somthing Crazy The project structure itself took me 1hour 20mins -wowow 
