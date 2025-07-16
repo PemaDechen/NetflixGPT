@@ -1,3 +1,5 @@
+<!-- NETFLIX GPT -->
+
 1. Created React App using "create-react-app"
 2. Configured TailWind by 
     2.1. "npm install -D tailwindcss@3.4.1 postcss autoprefixer" 
