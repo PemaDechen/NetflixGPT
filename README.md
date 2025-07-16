@@ -10,14 +10,5 @@
                 @import "tailwindcss/utilities";" 
                 lines in index.css file" 
     2.4. Configure tailwind.config.js file to 
-       `inline code` /** @type {import('tailwindcss').Config} */
-            module.exports = {
-            content: [
-                "./src/**/*.{js,jsx,ts,tsx}",
-            ],
-            theme: {
-                extend: {},
-            },
-            plugins: [],
-            }
+       `inline code /** @type {import('tailwindcss').Config} */  module.exports = { content: [ "./src/**/*.{js,jsx,ts,tsx}", ], theme: {extend: {},},plugins: [],}`
  ###### Something Crazy The project structure itself took me 1hour 20mins -wowow 
