@@ -14,3 +14,5 @@
 6. Build Logo and added gradient to it.
 7. Created Sign In and Sign Up form (used same form using useState)
 8. Form Validation and useRef Hook
+9. Deployed App to Production using firebase.
+10. Creating Authentication using firebase.

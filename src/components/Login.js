@@ -1,20 +1,35 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-
+import signUp from "../utils/signUpUser";
+import signInUser from "../utils/signInUser";
 function Login() {
   const [isSignInForm, setSignInForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
 
-  const handleButtonClick = (e) => {
+  const handleButtonClick = async (e) => {
     e.preventDefault();
     const emailData = email?.current?.value;
     const passwordData = password?.current?.value;
     const message = checkValidData(emailData, passwordData);
-    if (message) setErrorMessage(message);
-    else console.log("Valid Data");
+    setErrorMessage(message);
+    if (message) return;
+    if (!isSignInForm) {
+      // create new user
+      console.log("This is sign up logic");
+
+      const errorMessageFromCode = await signUp(emailData, passwordData);
+      if (errorMessageFromCode) {
+        console.log("This is errorMessageFromCode ", errorMessageFromCode);
+        setErrorMessage(errorMessage);
+      }
+    } else {
+      // sign in the user
+      console.log("This is sign in logic");
+      signInUser(emailData, passwordData);
+    }
   };
 
   const toggleSignInform = () => {
@@ -55,7 +70,11 @@ function Login() {
           placeholder="Password"
           className="bg-black p-4 my-4 w-full px-4 border rounded-md border-gray-100"
         />
-        {errorMessage ? <p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p> : ""}
+        {errorMessage ? (
+          <p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p>
+        ) : (
+          ""
+        )}
         <button
           className="p-3 my-6 bg-red-700 w-full"
           onClick={handleButtonClick}
