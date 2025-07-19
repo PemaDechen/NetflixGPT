@@ -8,3 +8,8 @@
     4. Configure tailwind.config.js file to 
        `inline code /** @type {import('tailwindcss').Config} */  module.exports = { content: [ "./src/**/*.{js,jsx,ts,tsx}", ], theme: {extend: {},},plugins: [],}`
  ###### Something Crazy The project structure itself took me 1hour 20mins -wowow 
+3. Imported "react-router-dom": "^7.7.0" for routing
+4. Encountered Infinite Loop (Adding route inside the component itself)
+5. Learnt how to access images (Inspect -img- search)
+6. Build Logo and added gradient to it.
+7. 
