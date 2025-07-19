@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { is } from "@babel/types";
+import { checkValidData } from "../utils/validate";
 
 function Login() {
   const [isSignInForm, setSignInForm] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    const emailData = email?.current?.value;
+    const passwordData = password?.current?.value;
+    const message = checkValidData(emailData, passwordData);
+    if (message) setErrorMessage(message);
+    else console.log("Valid Data");
+  };
+
   const toggleSignInform = () => {
     setSignInForm(!isSignInForm);
   };
@@ -32,15 +45,21 @@ function Login() {
         )}
         <input
           type="text"
+          ref={email}
           placeholder="Email Address"
           className="bg-black border rounded-md p-4 my-4 w-full px-4 border-gray-100"
         />
         <input
           type="text"
+          ref={password}
           placeholder="Password"
           className="bg-black p-4 my-4 w-full px-4 border rounded-md border-gray-100"
         />
-        <button className="p-3 my-6 bg-red-700 w-full">
+        {errorMessage ? <p className="text-red-700 font-bold text-lg py-2">{errorMessage}</p> : ""}
+        <button
+          className="p-3 my-6 bg-red-700 w-full"
+          onClick={handleButtonClick}
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         {isSignInForm && (

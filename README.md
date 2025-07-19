@@ -12,4 +12,5 @@
 4. Encountered Infinite Loop (Adding route inside the component itself)
 5. Learnt how to access images (Inspect -img- search)
 6. Build Logo and added gradient to it.
-7. 
+7. Created Sign In and Sign Up form (used same form using useState)
+8. Form Validation and useRef Hook
