@@ -5,18 +5,24 @@ import { useNavigate } from "react-router";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "@firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 function Login() {
   const [isSignInForm, setSignInForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = async (e) => {
     try {
       e.preventDefault();
+      const nameData = name?.current?.value;
       const emailData = email?.current?.value;
       const passwordData = password?.current?.value;
       const message = checkValidData(emailData, passwordData);
@@ -29,17 +35,28 @@ function Login() {
           passwordData
         );
         if (userDetails) {
+          const updateData = await updateProfile(userDetails?.user, {
+            displayName: nameData,
+            photoURL:
+              "https://media.licdn.com/dms/image/v2/C5603AQFRphykhCbwoQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1659598760774?e=1755734400&v=beta&t=W5qF3x9ZQLTkATzg_KBTJmAOjWfe_R4w8mZLiRRu_XA",
+          });
+
+          const {email, displayName, photoURL  } =
+            auth?.currentUser;
+
+          console.log('This is data ',email, displayName, photoURL);
+          dispatch(addUser(email, displayName, photoURL));
           navigate("/browse");
         }
       } else {
-          const userCredential = await signInWithEmailAndPassword(
-            auth,
-            emailData,
-            passwordData
-          );
-          if (userCredential) {
-            navigate("/browse");
-          }
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          emailData,
+          passwordData
+        );
+        if (userCredential) {
+          navigate("/browse");
+        }
       }
     } catch (error) {
       setErrorMessage(error?.message);
@@ -68,6 +85,7 @@ function Login() {
         {!isSignInForm && (
           <input
             type="text"
+            ref={name}
             placeholder="Full Name"
             className="bg-black border rounded-md p-4 my-4 w-full px-4 border-gray-100"
           />
