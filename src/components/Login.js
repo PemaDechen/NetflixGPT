@@ -1,41 +1,55 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import signUp from "../utils/signUpUser";
-import signInUser from "../utils/signInUser";
+import { useNavigate } from "react-router";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "@firebase/auth";
+import { auth } from "../utils/firebase";
 function Login() {
   const [isSignInForm, setSignInForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = async (e) => {
-    e.preventDefault();
-    const emailData = email?.current?.value;
-    const passwordData = password?.current?.value;
-    const message = checkValidData(emailData, passwordData);
-    setErrorMessage(message);
-    if (message) return;
-    if (!isSignInForm) {
-      // create new user
-      console.log("This is sign up logic");
-
-      const errorMessageFromCode = await signUp(emailData, passwordData);
-      if (errorMessageFromCode) {
-        console.log("This is errorMessageFromCode ", errorMessageFromCode);
-        setErrorMessage(errorMessage);
+    try {
+      e.preventDefault();
+      const emailData = email?.current?.value;
+      const passwordData = password?.current?.value;
+      const message = checkValidData(emailData, passwordData);
+      setErrorMessage(message);
+      if (message) return;
+      if (!isSignInForm) {
+        const userDetails = await createUserWithEmailAndPassword(
+          auth,
+          emailData,
+          passwordData
+        );
+        if (userDetails) {
+          navigate("/browse");
+        }
+      } else {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            emailData,
+            passwordData
+          );
+          if (userCredential) {
+            navigate("/browse");
+          }
       }
-    } else {
-      // sign in the user
-      console.log("This is sign in logic");
-      signInUser(emailData, passwordData);
+    } catch (error) {
+      setErrorMessage(error?.message);
+      console.log("This is error message", error?.message);
     }
   };
 
   const toggleSignInform = () => {
     setSignInForm(!isSignInForm);
   };
-
   return (
     <div>
       <Header />
